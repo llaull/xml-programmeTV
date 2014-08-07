@@ -12,18 +12,18 @@ class ProgramTV
  		$dom = new DOMDocument('1.0', 'UTF-8');
 		
 
-		$stat = @filemtime($this->c_path.$this->c_nom);  // returns FALSE if file does not exist
+		$stat = @filemtime($this->c_path.$this->c_nom);
 		if (!$stat or (time() - $stat >= $this->cache_life)){
 		    
-		    echo "fichier trop vieu ou inexistant<br>";
 		    file_put_contents($this->c_path.$this->c_nom,$data);
 			$dom->load($this->c_path.$this->c_nom);
 
 		}else{
+
 			$dom->load($this->c_path.$this->c_nom);
-		   // echo "fichier ok";
 		}
-/**/
+		/**************/
+		/* praser XML */
 		$chaines = $dom->getElementsByTagName('channel'); 
 		$programmes = $dom->getElementsByTagName('programme'); 
 
@@ -56,15 +56,17 @@ class ProgramTV
 		}
     
     	return $guideTV;
-    	/**/
+    	/**************/
 		
 	}
 
 	public function curl_load(){
+
 	    curl_setopt($ch=curl_init(), CURLOPT_URL, $this->url);
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	    $response = curl_exec($ch);
 	    curl_close($ch);
+	    
 	    return $response;
 	}
 }
