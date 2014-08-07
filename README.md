@@ -1,0 +1,1 @@
+class php permetant de parser le xml fournir par www.kazer.org afin d'avoir un tableau avec les chaines configurer dans son propre compte kazer
